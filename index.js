@@ -1,3 +1,10 @@
+/*
+ * @Date: 2024-10-28 10:33:02
+ * @LastEditors: yangzekun yang.zekun@vpclub.cn
+ * @LastEditTime: 2024-10-28 10:38:21
+ * @FilePath: \241028test\index.js
+ * @Description: 
+ */
 const path = require("path");
 const express = require("express");
 const cors = require("cors");
@@ -48,6 +55,20 @@ app.get("/api/wx_openid", async (req, res) => {
     res.send(req.headers["x-wx-openid"]);
   }
 });
+
+// 消息
+app.get("/message", async (req, res) => {
+  console.log('这是返回数据', req);
+  try {
+    console.log('JSON.stringify(req)', JSON.stringify(req));
+  } catch (error) {
+    console.log('这就异常了。。。', error);
+  }
+  res.send({
+    code: 0,
+    data: '你好！',
+  });
+})
 
 const port = process.env.PORT || 80;
 
