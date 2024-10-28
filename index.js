@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-10-28 10:33:02
  * @LastEditors: yangzekun yang.zekun@vpclub.cn
- * @LastEditTime: 2024-10-28 10:47:38
+ * @LastEditTime: 2024-10-28 11:10:10
  * @FilePath: \241028test\index.js
  * @Description: 
  */
@@ -56,29 +56,22 @@ app.get("/api/wx_openid", async (req, res) => {
   }
 });
 
-// 消息
-app.get("/message", async (req, res) => {
-  console.log('这是返回数据', req);
-  try {
-    console.log('JSON.stringify(req)', JSON.stringify(req));
-  } catch (error) {
-    console.log('这就异常了。。。', error);
-  }
-  res.send({
-    code: 0,
-    data: '你好！get',
+app.all("/message", async (req, res) => {
+  console.log('req start');
+  Object.keys(req).map((item, index) => {
+      console.log('item', index, item);
   });
-});
-app.post("/message", async (req, res) => {
-  console.log('这是返回数据 post', req);
-  try {
-    console.log('JSON.stringify(req)', JSON.stringify(req));
-  } catch (error) {
-    console.log('这就异常了。。。', error);
-  }
+  console.log('req end')
+  console.log('消息推送', req.body)
+  const { ToUserName, FromUserName, MsgType, Content, CreateTime } = req.body;
+  console.log('MsgType', MsgType);
+  console.log('Content', typeof(Content));
   res.send({
-    code: 0,
-    data: '你好！post',
+    ToUserName: FromUserName,
+    FromUserName: ToUserName,
+    MsgType,
+    Content,
+    CreateTime,
   });
 })
 
